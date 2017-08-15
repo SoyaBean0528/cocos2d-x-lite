@@ -291,28 +291,18 @@ public class Cocos2dxMusic {
             mediaPlayer.prepare();
 
             mediaPlayer.setVolume(this.mLeftVolume, this.mRightVolume);
-            
+
             mediaPlayer.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
                 
                 @Override
                 public void onSeekComplete(MediaPlayer mp) {
-                    stopBackgroundMusic();
-                    
-                    if (mIsLoop){
-                        playBackgroundMusic(path, mIsLoop);
+                    if (mp.getCurrentPosition() > 0){
+                        stopBackgroundMusic();
+                        
+                        if (mIsLoop){
+                            playBackgroundMusic(path, mIsLoop);
+                        }
                     }
-                }
-            });
-            
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    stopBackgroundMusic();
-                    
-                    if (mIsLoop){
-                        playBackgroundMusic(path, mIsLoop);
-                    }
-                    
                 }
             });
         } catch (final Exception e) {
