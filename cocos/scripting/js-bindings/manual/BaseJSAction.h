@@ -25,14 +25,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#include "platform/CCPlatformMacros.h"
+#pragma once
+
+#include "2d/CCAction.h"
 
 NS_CC_BEGIN
 
-CC_DLL const char* cocos2dVersion()
+/**
+ * @addtogroup BaseJSAction
+ * @{
+ */
+
+class BaseJSAction : public Action
 {
-    return "1.6.0";
-}
+public:
+    virtual std::string description() const;
+    virtual BaseJSAction* clone() const;
+    virtual BaseJSAction* reverse() const;
+    virtual bool isDone() const;
+    virtual void step(float dt);
+    virtual void update(float time);
+
+CC_CONSTRUCTOR_ACCESS:
+    BaseJSAction();
+    virtual ~BaseJSAction();
+
+};
 
 NS_CC_END
-
