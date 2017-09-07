@@ -697,12 +697,20 @@ bool Texture2D::initWithMipmaps(MipmapInfo* mipmaps, int mipmapsNum, PixelFormat
             CCLOG("cocos2d: Texture2D. WARNING. Mipmap level %u is not squared. Texture won't render correctly. width=%d != height=%d", i, width, height);
         }
 
-        err = glGetError();
-        if (err != GL_NO_ERROR)
-        {
-            CCLOG("cocos2d: Texture2D: Error uploading compressed texture level: %u . glError: 0x%04X", i, err);
-            return false;
-        }
+        /*
+         * on iOS 9.3, when application switch uiview will cause gl produces amounts of glerror,
+         * then the texture's initiliazation may failed, so now we force to ignore the glerror during
+         * texture initiliazation
+         */
+        // err = glGetError();
+        // if (err != GL_NO_ERROR)
+        // {
+        //     CCLOG("cocos2d: Texture2D: Error uploading compressed texture level: %u . glError: 0x%04X", i, err);
+        //     return false;
+        // }
+        
+        // clean possible GL error
+        CHECK_GL_ERROR_DEBUG(); 
 
         width = MAX(width >> 1, 1);
         height = MAX(height >> 1, 1);

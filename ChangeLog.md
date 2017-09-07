@@ -15,6 +15,10 @@ Issues
 - 100002 
         iss100002
         频繁调用MediaPlayer导致ANR
+- 100003 
+		iss100003
+		Texture2D::initWithMipmaps
+		On iOS 9.3, when application switch uiview will cause gl produces amounts of glerror, then the texture's initiliazation may failed, so now we force to ignore the glerror during texture initiliazation
 
 
 Features
